@@ -10,6 +10,10 @@ typedef struct _node{
 typedef nodeType *pNode;
 typedef nodeType *pList;
 
+int is_linked_list_empty( pList );
+void display_linked_list( pList );
+void add_element_linked_list( pList *, int );
+
 int is_linked_list_empty( pList l )
 {
   return ( l == NULL );
@@ -32,6 +36,28 @@ void display_linked_list( pList l )
   }
 }
 
+void add_element_linked_list( pList *l, int value )
+{
+  pNode index;
+  pNode new_node;
+
+  new_node = (pNode) malloc( sizeof(nodeType) );
+  new_node->data = value;
+
+  if( !*l || (*l)->data > value ){
+    new_node->next = *l;
+    *l = new_node;
+  }
+  else {
+    index = *l;
+    while( index->next  && index->next->data <= value)
+      index = index->next;
+
+    new_node->next = index->next;
+    index->next = new_node;
+  }
+}
+
 int
 main( int argc, char *argv )
 {
@@ -42,6 +68,11 @@ main( int argc, char *argv )
   l = NULL;
 
   assert( is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  /* Test case: add_element_linked_list */
+  add_element_linked_list( &l, 1 );
+  assert( !is_linked_list_empty( l ) );
   display_linked_list( l );
 
   return 0;
