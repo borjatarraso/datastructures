@@ -13,6 +13,7 @@ typedef nodeType *pList;
 int is_linked_list_empty( pList );
 void display_linked_list( pList );
 void add_element_linked_list( pList *, int );
+void del_element_linked_list( pList *, int );
 
 int is_linked_list_empty( pList l )
 {
@@ -39,40 +40,122 @@ void display_linked_list( pList l )
 void add_element_linked_list( pList *l, int value )
 {
   pNode index;
-  pNode new_node;
+  pNode node;
 
-  new_node = (pNode) malloc( sizeof(nodeType) );
-  new_node->data = value;
+  node = (pNode) malloc( sizeof(nodeType) );
+  node->data = value;
 
   if( !*l || (*l)->data > value ){
-    new_node->next = *l;
-    *l = new_node;
+    node->next = *l;
+    *l = node;
   }
+
   else {
     index = *l;
     while( index->next  && index->next->data <= value)
       index = index->next;
 
-    new_node->next = index->next;
-    index->next = new_node;
+    /* Do not allow duplicates */
+    if( index->data == value ){
+      free( node );
+      return;
+    }
+
+    node->next = index->next;
+    index->next = node;
   }
+}
+
+void del_element_linked_list( pList *l, int value )
+{
+  pNode node;
+  pNode prev;
+
+  node = *l;
+  prev = NULL;
+
+  while( node && node->data < value ){
+    prev = node;
+    node = node->next;
+  }
+
+  if( !node || node->data != value )
+    return;
+  else{
+    if( !prev )
+      *l = node->next;
+    else
+      prev->next = node->next;
+  }
+
+  free( node );
 }
 
 int
 main( int argc, char *argv )
 {
-  
-  /* Test case: is_linked_list_empty */
+  /* Test case 1: is_linked_list_empty */
   pList l;
-
   l = NULL;
-
   assert( is_linked_list_empty( l ) );
   display_linked_list( l );
 
-  /* Test case: add_element_linked_list */
+  /* Test case 2: add_element_linked_list */
   add_element_linked_list( &l, 1 );
   assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  add_element_linked_list( &l, 5 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  add_element_linked_list( &l, 3 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  add_element_linked_list( &l, 7 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  /* Test case 3: del_element_linked_list */
+  del_element_linked_list( &l, 3 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  del_element_linked_list( &l, 7 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  del_element_linked_list( &l, 1 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  /* Test case 4: testing deleting non-existing */
+  del_element_linked_list( &l, 2 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  /* Test case 5: testing adding duplicates */
+  add_element_linked_list( &l, 3 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  add_element_linked_list( &l, 3 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  /* Test case 6: testing deleting all elements */
+  del_element_linked_list( &l, 5 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  del_element_linked_list( &l, 3 );
+  assert( is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  /* Test case 7: testing deleting empty list */
+  del_element_linked_list( &l, 2 );
+  assert( is_linked_list_empty( l ) );
   display_linked_list( l );
 
   return 0;
