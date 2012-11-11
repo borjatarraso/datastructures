@@ -1,3 +1,9 @@
 2012-09-15  Borja Tarraso  <borja.tarraso@member.fsf.org>
 
 	* Empty version 0.0 Datastructures created, project initialized.
+
+2012-11-11  Borja Tarraso  <borja.tarraso@member.fsf.org>
+
+	* Deployed version 0.1 with shorted linked list implemented.
+	* Added initial test cases.
+	* Added automated build with Makefile.
