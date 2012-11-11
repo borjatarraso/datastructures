@@ -91,6 +91,19 @@ void del_element_linked_list( pList *l, int value )
   free( node );
 }
 
+void remove_linked_list( pList *l )
+{
+  pNode node;
+
+  node = *l;
+
+  while( *l ){
+    node = *l;
+    *l = node->next;
+    free( node );
+  }
+}
+
 int
 main( int argc, char *argv )
 {
@@ -155,6 +168,22 @@ main( int argc, char *argv )
 
   /* Test case 7: testing deleting empty list */
   del_element_linked_list( &l, 2 );
+  assert( is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  /* Test case 8: testing remove the whole linked list */
+  remove_linked_list( &l );
+  assert( is_linked_list_empty( l ) );
+
+  add_element_linked_list( &l, 5 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  add_element_linked_list( &l, 3 );
+  assert( !is_linked_list_empty( l ) );
+  display_linked_list( l );
+
+  remove_linked_list( &l );
   assert( is_linked_list_empty( l ) );
   display_linked_list( l );
 
