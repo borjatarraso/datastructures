@@ -14,6 +14,7 @@ int is_linked_list_empty( pList );
 void display_linked_list( pList );
 void add_element_linked_list( pList *, int );
 void del_element_linked_list( pList *, int );
+void remove_linked_list( pList * );
 
 int is_linked_list_empty( pList l )
 {
@@ -105,10 +106,16 @@ void remove_linked_list( pList *l )
 }
 
 int
-main( int argc, char *argv )
+main( int argc, char *argv[] )
 {
-  /* Test case 1: is_linked_list_empty */
   pList l;
+
+  if ( argc != 1 ){
+    printf("Usage: %s\n", argv[0]);
+    exit(1);
+  }
+
+  /* Test case 1: is_linked_list_empty */
   l = NULL;
   assert( is_linked_list_empty( l ) );
   display_linked_list( l );
