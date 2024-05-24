@@ -7,3 +7,9 @@
 	* Deployed version 0.1 with shorted linked list implemented.
 	* Added initial test cases.
 	* Added automated build with Makefile.
+
+2024-05-24  Borja Tarraso  <borja.tarraso@member.fsf.org>
+
+	* Major refactoring 0.2 with shorted linked list implemented.
+	* List is converted to an external library.
+	* Updated license from GPLv3 to BSD-2 simplified.
