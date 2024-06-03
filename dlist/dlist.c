@@ -26,7 +26,7 @@ void dlist_destroy(DoubleList *list){
         }
     }
 
-    memset(list, 0, sizeof DoubleList);
+    memset(list, 0, sizeof(DoubleList));
 }
 
 int dlist_ins_next(DoubleList *list, DoubleListElement *element, const void *data){
@@ -35,7 +35,7 @@ int dlist_ins_next(DoubleList *list, DoubleListElement *element, const void *dat
     if(element == NULL && dlist_size(list) != 0)
         return -1;
 
-    if((new_element = (DoubleListElement *)malloc(sizeof DoubleListElement)) == NULL)
+    if((new_element = (DoubleListElement *)malloc(sizeof(DoubleListElement))) == NULL)
         return -1;
 
     new_element->data = (void *)data;
@@ -63,10 +63,12 @@ int dlist_ins_next(DoubleList *list, DoubleListElement *element, const void *dat
 }
 
 int dlist_ins_prev(DoubleList *list, DoubleListElement *element, const void *data){
+    DoubleListElement *new_element;
+
     if(element == NULL && dlist_size(list) != 0)
         return -1;
 
-    if((new_element = (DoubleListElement *)malloc(sizeof DoubleListElement)) == NULL)
+    if((new_element = (DoubleListElement *)malloc(sizeof(DoubleListElement))) == NULL)
         return -1;
 
     new_element->data = (void *)data;

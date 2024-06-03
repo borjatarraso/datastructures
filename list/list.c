@@ -26,13 +26,13 @@ void list_destroy(List *list){
         }
     }
 
-    memset(list, 0, sizeof List);
+    memset(list, 0, sizeof(List));
 }
 
 int list_ins_next(List *list, ListElement *element, const void *data){
     ListElement *new_element;
 
-    if((new_element = (ListElement *)malloc(sizeof ListElement)) == NULL)
+    if((new_element = (ListElement *)malloc(sizeof(ListElement))) == NULL)
         return -1;
 
     new_element->data = (void *)data;
@@ -66,7 +66,7 @@ int list_rem_next(List *list, ListElement *element, void **data){
         old_element = list->head;
         list->head = list->head->next;
 
-        if(list->tail(list) == 1)
+        if(list_size(list) == 1)
             list->tail = NULL;
     }else{
         if(element->next == NULL)

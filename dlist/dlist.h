@@ -13,7 +13,7 @@
 typedef struct DoubleListElement_ {
     void *data;
     struct DoubleListElement_ *prev;
-    struct DobuleListElement_ *next;
+    struct DoubleListElement_ *next;
 } DoubleListElement;
 
 typedef struct DoubleList_ {
