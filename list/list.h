@@ -8,7 +8,7 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <stdlib.>
+#include <stdlib.h>
 
 typedef struct ListElement_ {
     void *data;
